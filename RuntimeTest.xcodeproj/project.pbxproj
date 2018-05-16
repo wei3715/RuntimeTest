@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0490A4F920AACA700013EDDE /* TestMetaClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490A4F820AACA700013EDDE /* TestMetaClassViewController.m */; };
 		04CF0EFC201AC76B00B0273C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0EFB201AC76B00B0273C /* AppDelegate.m */; };
 		04CF0EFF201AC76B00B0273C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0EFE201AC76B00B0273C /* ViewController.m */; };
 		04CF0F02201AC76B00B0273C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF0F00201AC76B00B0273C /* Main.storyboard */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0490A4F720AACA700013EDDE /* TestMetaClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMetaClassViewController.h; sourceTree = "<group>"; };
+		0490A4F820AACA700013EDDE /* TestMetaClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestMetaClassViewController.m; sourceTree = "<group>"; };
 		04CF0EF7201AC76B00B0273C /* RuntimeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuntimeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CF0EFA201AC76B00B0273C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04CF0EFB201AC76B00B0273C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				04CF0EFE201AC76B00B0273C /* ViewController.m */,
 				04CF0F2C201ACF9D00B0273C /* UIViewController+Methods.h */,
 				04CF0F2D201ACF9D00B0273C /* UIViewController+Methods.m */,
+				0490A4F720AACA700013EDDE /* TestMetaClassViewController.h */,
+				0490A4F820AACA700013EDDE /* TestMetaClassViewController.m */,
 				04CF0F00201AC76B00B0273C /* Main.storyboard */,
 				04CF0F03201AC76B00B0273C /* Assets.xcassets */,
 				04CF0F05201AC76B00B0273C /* LaunchScreen.storyboard */,
@@ -270,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0490A4F920AACA700013EDDE /* TestMetaClassViewController.m in Sources */,
 				04CF0EFF201AC76B00B0273C /* ViewController.m in Sources */,
 				04CF0F2E201ACF9D00B0273C /* UIViewController+Methods.m in Sources */,
 				04CF0F0A201AC76B00B0273C /* main.m in Sources */,

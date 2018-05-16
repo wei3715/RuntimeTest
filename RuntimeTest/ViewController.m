@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <objc/runtime.h>
 #import "UIViewController+Methods.h"
+#import "TestMetaClassViewController.h"
 @interface ViewController ()
 
 @property (nonatomic, copy) NSString  *test11;
@@ -41,6 +42,10 @@
     objc_setAssociatedObject(self, &associatedObjectKey, @"我就是要关联的字符串对象内容", OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     NSString *theString = objc_getAssociatedObject(self, &associatedObjectKey);
     NSLog(@"关联对象：%@", theString);
+}
+- (IBAction)testMetaClass:(id)sender {
+    
+    [self testMetaClass];
 }
 
 //测试category 添加属性
@@ -104,6 +109,10 @@
 // 要动态添加的方法，这是一个C方法
 void runAddMethod(id self, SEL _cmd, NSString *string) {
     NSLog(@"动态添加一个方法来提示");
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    TestMetaClassViewController *testMetaVC = [[TestMetaClassViewController alloc]init];
 }
 
 
