@@ -111,9 +111,6 @@ void runAddMethod(id self, SEL _cmd, NSString *string) {
     NSLog(@"动态添加一个方法来提示");
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    TestMetaClassViewController *testMetaVC = [[TestMetaClassViewController alloc]init];
-}
 
 
 - (void)didReceiveMemoryWarning {
