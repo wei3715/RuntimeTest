@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0490A4F920AACA700013EDDE /* TestMetaClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490A4F820AACA700013EDDE /* TestMetaClassViewController.m */; };
+		044E9B4620AD188400658846 /* ZWWPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E9B4520AD188400658846 /* ZWWPerson.m */; };
+		044E9B4920AD74E300658846 /* ZWWPersonForward.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E9B4820AD74E300658846 /* ZWWPersonForward.m */; };
 		04CF0EFC201AC76B00B0273C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0EFB201AC76B00B0273C /* AppDelegate.m */; };
 		04CF0EFF201AC76B00B0273C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0EFE201AC76B00B0273C /* ViewController.m */; };
 		04CF0F02201AC76B00B0273C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF0F00201AC76B00B0273C /* Main.storyboard */; };
@@ -37,8 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0490A4F720AACA700013EDDE /* TestMetaClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMetaClassViewController.h; sourceTree = "<group>"; };
-		0490A4F820AACA700013EDDE /* TestMetaClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestMetaClassViewController.m; sourceTree = "<group>"; };
+		044E9B4420AD188400658846 /* ZWWPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWWPerson.h; sourceTree = "<group>"; };
+		044E9B4520AD188400658846 /* ZWWPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZWWPerson.m; sourceTree = "<group>"; };
+		044E9B4720AD74E300658846 /* ZWWPersonForward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWWPersonForward.h; sourceTree = "<group>"; };
+		044E9B4820AD74E300658846 /* ZWWPersonForward.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZWWPersonForward.m; sourceTree = "<group>"; };
 		04CF0EF7201AC76B00B0273C /* RuntimeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuntimeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CF0EFA201AC76B00B0273C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04CF0EFB201AC76B00B0273C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -113,8 +116,10 @@
 				04CF0EFE201AC76B00B0273C /* ViewController.m */,
 				04CF0F2C201ACF9D00B0273C /* UIViewController+Methods.h */,
 				04CF0F2D201ACF9D00B0273C /* UIViewController+Methods.m */,
-				0490A4F720AACA700013EDDE /* TestMetaClassViewController.h */,
-				0490A4F820AACA700013EDDE /* TestMetaClassViewController.m */,
+				044E9B4420AD188400658846 /* ZWWPerson.h */,
+				044E9B4520AD188400658846 /* ZWWPerson.m */,
+				044E9B4720AD74E300658846 /* ZWWPersonForward.h */,
+				044E9B4820AD74E300658846 /* ZWWPersonForward.m */,
 				04CF0F00201AC76B00B0273C /* Main.storyboard */,
 				04CF0F03201AC76B00B0273C /* Assets.xcassets */,
 				04CF0F05201AC76B00B0273C /* LaunchScreen.storyboard */,
@@ -275,7 +280,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0490A4F920AACA700013EDDE /* TestMetaClassViewController.m in Sources */,
+				044E9B4620AD188400658846 /* ZWWPerson.m in Sources */,
+				044E9B4920AD74E300658846 /* ZWWPersonForward.m in Sources */,
 				04CF0EFF201AC76B00B0273C /* ViewController.m in Sources */,
 				04CF0F2E201ACF9D00B0273C /* UIViewController+Methods.m in Sources */,
 				04CF0F0A201AC76B00B0273C /* main.m in Sources */,
@@ -443,6 +449,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				INFOPLIST_FILE = RuntimeTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zoe.RuntimeTest;
@@ -456,6 +463,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				INFOPLIST_FILE = RuntimeTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zoe.RuntimeTest;

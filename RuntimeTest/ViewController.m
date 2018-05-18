@@ -8,15 +8,11 @@
 
 #import "ViewController.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 #import "UIViewController+Methods.h"
-#import "TestMetaClassViewController.h"
-@interface ViewController ()
+#import "ZWWPerson.h"
 
-@property (nonatomic, copy) NSString  *test11;
-@property (nonatomic, copy) NSString  *test22;
-@property (nonatomic, strong) UIButton *logBtn;
-
-- (void)notHas;
+@interface ViewController ()<NSCoding>
 
 @end
 
@@ -25,93 +21,158 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-     [self testMethod1];
-     [self logInfo];
-    
-    //测试拦截未实现的方法，动态添加方法
-    self.logBtn = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 20)];
-    [self.logBtn setTitle:@"测 试" forState:UIControlStateNormal];
-    [self.logBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    // 添加没有实现的点击事件
-    [self.logBtn addTarget:self action:@selector(notHas) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.logBtn];
-    
-    // 关联对象
+
+  
+    // 关联对象,给分类添加成员变量的大概步骤
     static char associatedObjectKey;
     objc_setAssociatedObject(self, &associatedObjectKey, @"我就是要关联的字符串对象内容", OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     NSString *theString = objc_getAssociatedObject(self, &associatedObjectKey);
     NSLog(@"关联对象：%@", theString);
 }
+
+//1.利用runtime打印运行时信息
+- (IBAction)logInfo:(id)sender {
+   unsigned int count = 0;// 用于记录列表内的数量，进行循环输出
+    
+    ZWWPerson *person = [[ZWWPerson alloc]init];
+    Class cls = [person class];
+    
+    //打印ZWWPerson信息
+    const char *clsName = class_getName(cls);
+    NSLog(@"person 对象的类名==%s",clsName);
+    //打印父类名
+    Class fatherClass = class_getSuperclass(cls);
+    NSLog(@"person 类对象的父类名==%s",class_getName(fatherClass) );
+    
+    //cls,fatherClass 都不是元类
+    if (class_isMetaClass(cls)) {
+        NSLog(@"%s是元类",class_getName(cls));
+    }
+    NSLog(@"%s不是元类",class_getName(cls));
+    
+    //cls,fatherClass 都不是元类
+    if (class_isMetaClass(objc_getClass(clsName))) {
+        NSLog(@"%s是元类",class_getName(objc_getClass(clsName)));
+    }
+    NSLog(@"%s不是元类",class_getName(objc_getClass(clsName)));
+    
+    
+    [self printPropertyName:cls clsName:class_getName(cls) count:count];
+    
+    //获取指定属性名称(可获取.m中属性)
+    objc_property_t property = class_getProperty(cls, "arr");
+    if (property != NULL) {
+        const char *propertyName = property_getName(property);
+        NSString *arrString = [NSString stringWithUTF8String:propertyName];
+        [person setValue:@[@"7",@"9",@"0"] forKey:arrString];
+        NSLog(@"kvo 获取arr==%@", [person valueForKey:arrString]);
+    }
+    
+    [self printIvarName:cls clsName:clsName count:count];
+    [self printMethodName:cls clsName:clsName count:count];
+    //获取类方法+method3
+    [self printMethodName:object_getClass(cls) clsName:object_getClassName(object_getClass(cls)) count:count];
+    [self printProtocolName:cls clsName:clsName count:count];
+
+}
+ //2.runtime的实际用处（获取成员变量的实际用处）：归档,解档：
+- (IBAction)ArchiverAction:(id)sender {
+    ZWWPerson *person = [[ZWWPerson alloc]init];
+    
+    person.name = @"zww";
+    person ->height = 168;
+    person.age = 18;
+    
+    //归档
+    BOOL success =  [NSKeyedArchiver archiveRootObject:person toFile:@"/Users/mac/Desktop/data"];
+    if (success) {
+        NSLog(@"归档成功");
+    }else{
+        NSLog(@"归档失败");
+    }
+    
+    //解档
+    person = [NSKeyedUnarchiver unarchiveObjectWithFile:@"/Users/mac/Desktop/data"];
+    NSLog(@"解档后的变量 name==%@, age==%zd,height==%zd",person.name,person.age,person -> height);
+    
+}
+
+//获取属性列表
+- (void)printPropertyName:(Class)cls clsName:(const char *)clsaName count:(unsigned int)count{
+    objc_property_t *propertyList = class_copyPropertyList(cls, &count);
+    for (int i = 0; i<count; i++) {
+        const char *propertyName = property_getName(propertyList[i]);
+        NSLog(@"%s property --> %s", clsaName,propertyName);
+        //这里可以通过Runtime 拿到原本获取不到的.m文件中的属性
+    }
+    //释放
+    free(propertyList);
+}
+
+//获取成员变量列表
+- (void)printIvarName:(Class)cls clsName:(const char *)clsaName count:(unsigned int)count{
+    Ivar *personIvarList = class_copyIvarList(cls, &count);
+    for (int i = 0; i<count; i++) {
+        const char *ivarName = ivar_getName(personIvarList[i]);
+        NSLog(@"%s ivar == %s",clsaName,ivarName);
+    }
+}
+
+//获取方法列表
+- (void)printMethodName:(Class)cls clsName:(const char *)clsaName count:(unsigned int)count{
+    Method *methodList = class_copyMethodList(cls, &count);
+    for (int i = 0; i<count; i++) {
+        Method method = methodList[i];
+        NSString *methodName = NSStringFromSelector(method_getName(method));
+         NSLog(@"%s method == %@",clsaName,methodName);
+    }
+    free(methodList);
+}
+
+// 获取协议列表
+- (void)printProtocolName:(Class)cls clsName:(const char *)clsaName count:(unsigned int)count{
+    
+    Protocol * __unsafe_unretained _Nonnull *protocalList = class_copyProtocolList(cls, &count);
+    for (int i = 0; i<count; i++) {
+        Protocol *protocal = protocalList[i];
+        const char *protocolName = protocol_getName(protocal);
+//        NSLog(@"%s protocal == %s",clsaName,protocolName);
+        NSLog(@"%s protocal == %@",clsaName, [NSString stringWithUTF8String:protocolName]);
+    }
+    free(protocalList);
+    
+}
+//3.测试category 添加成员变量
+- (IBAction)categoryAddPro:(id)sender {
+    self.test1 = @"测试关联对象";
+    NSLog(@"category添加属性值成功==%@",self.test1);
+}
+
+//4.测试元类
 - (IBAction)testMetaClass:(id)sender {
     
     [self testMetaClass];
 }
 
-//测试category 添加属性
-- (void)testMethod1{
-    self.test1 = @"测试关联对象";
-    NSLog(@"关联对象==%@",self.test1);
-}
+- (IBAction)msgSendAction:(id)sender {
+     ZWWPerson *person = [[ZWWPerson alloc]init];
+    
+    //显式调用方法：只能调用.h文件中暴露出来的方法.
+//    [person method1];
+    //隐式调用:可以调用.m中的方法。显式调用方法默认也会转化为隐式调用
+    [person performSelector:@selector(method1)];
+    
+    //c语言消息发送：底层都会转为这种形式调用方法
+    //arg1:接受者
+    //arg2:SEL
+    //注意：这里调用时会提示报错：需要 bulidSetting->Enable strict Checking of objc_msgSend Calls 改为No
+    objc_msgSend(person,@selector(method1));
+    
+    //消息转发，方法未实现不再会crash
+    [person method2WithParam:@{@"result":@"success"}];
 
-- (void)testMethod2{
     
 }
-
-//打印运行时类信息
-- (void)logInfo {
-    unsigned int count;// 用于记录列表内的数量，进行循环输出
-    
-    // 获取属性列表
-    objc_property_t *propertyList = class_copyPropertyList([self class], &count);
-    for (unsigned int i = 0; i < count; i++) {
-        const char *propertyName = property_getName(propertyList[i]);
-        NSLog(@"property --> %@", [NSString stringWithUTF8String:propertyName]);
-    }
-    
-    // 获取方法列表
-    Method *methodList = class_copyMethodList([self class], &count);
-    for (unsigned int i; i < count; i++) {
-        Method method = methodList[i];
-        NSLog(@"method --> %@", NSStringFromSelector(method_getName(method)));
-    }
-    
-    // 获取成员变量列表
-    Ivar *ivarList = class_copyIvarList([self class], &count);
-    for (unsigned int i; i < count; i++) {
-        Ivar myIvar = ivarList[i];
-        const char *ivarName = ivar_getName(myIvar);
-        NSLog(@"Ivar --> %@", [NSString stringWithUTF8String:ivarName]);
-    }
-    
-    // 获取协议列表
-    __unsafe_unretained Protocol **protocolList = class_copyProtocolList([self class], &count);
-    for (unsigned int i; i < count; i++) {
-        Protocol *myProtocal = protocolList[i];
-        const char *protocolName = protocol_getName(myProtocal);
-        NSLog(@"protocol --> %@", [NSString stringWithUTF8String:protocolName]);
-    }
-}
-
-//点击按钮后不会崩溃，而是转到了对 runAddMethod 方法的调用。
-//其实更明确地说，应该是重现了对要调用的方法的实现，将原本要调用的方法的实现，改为了一个新的实现。class_addMethod 方法的第二个参数是要重写的方法，这里用的就是传进来的参数sel，第三个参数就是重写后的实现。第四个参数是方法的签名。
-// 调用不存在的类方法时触发，默认返回NO，可以加上自己的处理后返回YES
-+ (BOOL)resolveInstanceMethod:(SEL)sel {
-    NSLog(@"notFind!");
-    // 给本类动态添加一个方法
-    if ([NSStringFromSelector(sel) isEqualToString:@"notHas"]) {
-        class_addMethod(self, sel, (IMP)runAddMethod, "");
-    }
-    // 注意要返回YES
-    return YES;
-}
-
-// 要动态添加的方法，这是一个C方法
-void runAddMethod(id self, SEL _cmd, NSString *string) {
-    NSLog(@"动态添加一个方法来提示");
-}
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

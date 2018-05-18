@@ -15,6 +15,7 @@
 
 @implementation UIViewController (Methods)
 
+
 - (void)setTest1:(NSString *)test1{
     /*
      关联方法：
@@ -43,9 +44,11 @@ void TestMetaClassM(id self,SEL _cmd){
     
     //当前类
     Class currentClass = [self class];
+    const char *a = object_getClassName(currentClass);
     for (int i = 0 ; i<4; i++) {
-        NSLog(@"当前类的序号%d 地址%p",i,currentClass);
+        NSLog(@"Following the isa pointer %d times gives %p---%s", i, currentClass,a);
         currentClass = object_getClass(currentClass);
+        a = object_getClassName(currentClass);
     }
     
     NSLog(@"NSObject类地址%p",[NSObject class]);
