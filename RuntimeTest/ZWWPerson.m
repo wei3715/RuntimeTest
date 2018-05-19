@@ -25,7 +25,7 @@
 //    NSLog(@"方法正常实现方式==%s",__func__);
 //}
 
-#pragma mark 动态解析转发方法:
+#pragma mark 1.动态解析转发方法:
 //方法转发机制1：动态解析转发方法:方法未实现时先执行 1.动态解析，2.备用接受者转发 3.完全消息转发
 //将原本要调用的方法的实现，改为了一个新的实现。class_addMethod 方法的第二个参数是要重写的方法，这里用的就是传进来的参数sel，第三个参数就是重写后的实现。第四个参数是方法的类型。
 //调用不存在的类方法时触发，默认返回NO，可以加上自己的处理后返回YES
@@ -46,7 +46,7 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
 }
 
 
-#pragma mark 备用接受者转发方法
+#pragma mark 2.备用接受者转发方法
 //这个方法返回你需要转发消息的对象
 //-(id)forwardingTargetForSelector:(SEL)aSelector{
 //    if (aSelector == @selector(method2WithParam:)) {
@@ -56,7 +56,7 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
 //    return nil;
 //}
 
-#pragma mark 完全消息转发
+#pragma mark 3.完全消息转发
 //用来生成方法签名，这个签名就是给forwardInvocation中的参数NSInvocation调用的
 -(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector{
     if (aSelector == @selector(run)) {
@@ -92,8 +92,8 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
         Ivar *ivarList = class_copyIvarList([ZWWPerson class], &count);
         //获取类中所有成员变量
         for (int i = 0; i<count; i++) {
-          
-            const char *ivarName = ivar_getName(ivarList[i]);
+            Ivar ivar = ivarList[i];
+            const char *ivarName = ivar_getName(ivar);
             NSString *strIvarName = [NSString stringWithUTF8String:ivarName];
             //进行解档取值
             id value = [decoder decodeObjectForKey:strIvarName];

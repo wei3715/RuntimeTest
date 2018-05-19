@@ -11,7 +11,7 @@
 #import <objc/message.h>
 #import "UIViewController+Methods.h"
 #import "ZWWPerson.h"
-
+#import "ZWWPerson+Method.h"
 @interface ViewController ()<NSCoding>
 
 @end
@@ -21,13 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    NSLog(@"%@" "%@" "%@",@"大家好",@"才是",@"真的好");
+    [[NSString stringWithFormat:@"%s",__FILE__]lastPathComponent];
 
-  
-    // 关联对象,给分类添加成员变量的大概步骤
-    static char associatedObjectKey;
-    objc_setAssociatedObject(self, &associatedObjectKey, @"我就是要关联的字符串对象内容", OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    NSString *theString = objc_getAssociatedObject(self, &associatedObjectKey);
-    NSLog(@"关联对象：%@", theString);
 }
 
 //1.利用runtime打印运行时信息
@@ -35,6 +32,12 @@
    unsigned int count = 0;// 用于记录列表内的数量，进行循环输出
     
     ZWWPerson *person = [[ZWWPerson alloc]init];
+    
+    //关联对象成功，可以通过点语法访问属性weight、
+    person.weight = 45.0;
+    
+    
+    
     Class cls = [person class];
     
     //打印ZWWPerson信息
@@ -78,7 +81,7 @@
  //2.runtime的实际用处（获取成员变量的实际用处）：归档,解档：
 - (IBAction)ArchiverAction:(id)sender {
     ZWWPerson *person = [[ZWWPerson alloc]init];
-    
+
     person.name = @"zww";
     person ->height = 168;
     person.age = 18;
@@ -142,11 +145,7 @@
     free(protocalList);
     
 }
-//3.测试category 添加成员变量
-- (IBAction)categoryAddPro:(id)sender {
-    self.test1 = @"测试关联对象";
-    NSLog(@"category添加属性值成功==%@",self.test1);
-}
+
 
 //4.测试元类
 - (IBAction)testMetaClass:(id)sender {

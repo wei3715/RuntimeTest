@@ -10,8 +10,6 @@
 
 @interface UIViewController (Methods)
 
-@property (nonatomic, copy) NSString  *test1;
-
 //测试元类
 - (void)testMetaClass;
 @end

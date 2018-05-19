@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042E91BA20AE714C00D1CD02 /* ZWWPerson+Method.m in Sources */ = {isa = PBXBuildFile; fileRef = 042E91B920AE714C00D1CD02 /* ZWWPerson+Method.m */; };
 		044E9B4620AD188400658846 /* ZWWPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E9B4520AD188400658846 /* ZWWPerson.m */; };
 		044E9B4920AD74E300658846 /* ZWWPersonForward.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E9B4820AD74E300658846 /* ZWWPersonForward.m */; };
 		04CF0EFC201AC76B00B0273C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0EFB201AC76B00B0273C /* AppDelegate.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		042E91B820AE714C00D1CD02 /* ZWWPerson+Method.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZWWPerson+Method.h"; sourceTree = "<group>"; };
+		042E91B920AE714C00D1CD02 /* ZWWPerson+Method.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZWWPerson+Method.m"; sourceTree = "<group>"; };
 		044E9B4420AD188400658846 /* ZWWPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWWPerson.h; sourceTree = "<group>"; };
 		044E9B4520AD188400658846 /* ZWWPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZWWPerson.m; sourceTree = "<group>"; };
 		044E9B4720AD74E300658846 /* ZWWPersonForward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWWPersonForward.h; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 				04CF0F2D201ACF9D00B0273C /* UIViewController+Methods.m */,
 				044E9B4420AD188400658846 /* ZWWPerson.h */,
 				044E9B4520AD188400658846 /* ZWWPerson.m */,
+				042E91B820AE714C00D1CD02 /* ZWWPerson+Method.h */,
+				042E91B920AE714C00D1CD02 /* ZWWPerson+Method.m */,
 				044E9B4720AD74E300658846 /* ZWWPersonForward.h */,
 				044E9B4820AD74E300658846 /* ZWWPersonForward.m */,
 				04CF0F00201AC76B00B0273C /* Main.storyboard */,
@@ -280,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042E91BA20AE714C00D1CD02 /* ZWWPerson+Method.m in Sources */,
 				044E9B4620AD188400658846 /* ZWWPerson.m in Sources */,
 				044E9B4920AD74E300658846 /* ZWWPersonForward.m in Sources */,
 				04CF0EFF201AC76B00B0273C /* ViewController.m in Sources */,
