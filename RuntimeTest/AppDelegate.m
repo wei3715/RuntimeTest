@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ZWWTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, [UIScreen mainScreen].bounds.size.height)];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    ZWWTableViewController *tabVC = [[ZWWTableViewController alloc]init];
+    UINavigationController *tabNavi = [[UINavigationController alloc]initWithRootViewController:tabVC];
+    self.window.rootViewController = tabNavi;
     return YES;
 }
 

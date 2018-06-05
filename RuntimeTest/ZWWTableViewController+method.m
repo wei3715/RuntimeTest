@@ -1,19 +1,17 @@
 //
-//  UIViewController+Methods.m
-//  RuntimeTest
+//  ZWWTableViewController+method.m
+//  MediaTest
 //
-//  Created by mac on 2018/1/26.
+//  Created by mac on 2018/5/19.
 //  Copyright © 2018年 mac. All rights reserved.
 //
 
-#import "UIViewController+Methods.h"
+#import "ZWWTableViewController+method.h"
 #import <objc/runtime.h>
-@interface UIViewController ()
+@interface ZWWTableViewController ()
 
 @end
-
-@implementation UIViewController (Methods)
-
+@implementation ZWWTableViewController (method)
 //写一个c语言的函数
 void TestMetaClassM(id self,SEL _cmd){
     NSLog(@"当前类对象地址%p",self);
@@ -77,14 +75,12 @@ void TestMetaClassM(id self,SEL _cmd){
             method_exchangeImplementations(originalMethod, swizzlingMethod);
         }
         
-       
+        
     });
 }
 
 - (void)zww_viewWillAppear:(BOOL)animated{
     NSLog(@"要替换的方法");
 }
-
-
 
 @end

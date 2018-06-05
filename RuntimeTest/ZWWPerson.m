@@ -21,17 +21,21 @@
     NSLog(@"测试方法%s",__func__);
 }
 
+/*********************************************消息转发机制************************************************/
+
 //- (void)method2WithParam:(NSDictionary *)dic{
 //    NSLog(@"方法正常实现方式==%s",__func__);
 //}
 
-#pragma mark 1.动态解析转发方法:
+#pragma mark 1.动态解析转发方法
 //方法转发机制1：动态解析转发方法:方法未实现时先执行 1.动态解析，2.备用接受者转发 3.完全消息转发
 //将原本要调用的方法的实现，改为了一个新的实现。class_addMethod 方法的第二个参数是要重写的方法，这里用的就是传进来的参数sel，第三个参数就是重写后的实现。第四个参数是方法的类型。
 //调用不存在的类方法时触发，默认返回NO，可以加上自己的处理后返回YES
 //+(BOOL)resolveInstanceMethod:(SEL)sel{
 //    if (sel == @selector(method2WithParam:)) {
-//                class_addMethod([self class], sel, (IMP)runAddMethod, "v@:");
+            //通过添加一个c语言的函数来转发方法的实现
+//          class_addMethod([self class], sel, (IMP)runAddMethod, "v@:");
+            //通过block来转发方法的实现
 ////        class_addMethod([self class], sel, imp_implementationWithBlock(^(id self,NSDictionary *dic){
 ////            NSLog(@"未实现的方法通过动态解析转发为一个block实现函数%@",dic);
 ////        }), "v@:");
@@ -46,7 +50,7 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
 }
 
 
-#pragma mark 2.备用接受者转发方法
+#pragma mark 2.备用接受者（ZWWPersonForward）转发方法
 //这个方法返回你需要转发消息的对象
 //-(id)forwardingTargetForSelector:(SEL)aSelector{
 //    if (aSelector == @selector(method2WithParam:)) {
@@ -59,7 +63,7 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
 #pragma mark 3.完全消息转发
 //用来生成方法签名，这个签名就是给forwardInvocation中的参数NSInvocation调用的
 -(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector{
-    if (aSelector == @selector(run)) {
+    if (aSelector == @selector(method2WithParam:)) {
         //生成新的方法签名
         NSMethodSignature *methodSignature = [NSMethodSignature signatureWithObjCTypes:"v@:"];
         return methodSignature;
@@ -75,6 +79,7 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
         [anInvocation invokeWithTarget:forwad];
     }
 }
+/*********************************************消息转发机制************************************************/
 
 + (void)method3{
     
