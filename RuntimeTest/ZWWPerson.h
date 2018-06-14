@@ -23,6 +23,19 @@
 //- (void)method1;
 - (void)method2WithParam:(NSDictionary *)dic;
 + (void)method3;
+
+/**
+ *  判断类中是否有该属性
+ *
+ *  @param property 属性名称
+ *
+ *  @return 判断结果
+ */
+-(BOOL)hasProperty:(NSString *)property;
+
+//测试利用运行时动态交换方法实现
++(void)run;
++(void)study;
 @end
 
 

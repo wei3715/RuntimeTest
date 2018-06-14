@@ -12,4 +12,7 @@
 
 //测试元类
 - (void)testMetaClass;
+
+//动态添加一个了类
+- (void)createClassUseRuntime;
 @end

@@ -19,6 +19,8 @@
 		04CF0F0A201AC76B00B0273C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0F09201AC76B00B0273C /* main.m */; };
 		04CF0F14201AC76B00B0273C /* RuntimeTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0F13201AC76B00B0273C /* RuntimeTestTests.m */; };
 		04CF0F1F201AC76B00B0273C /* RuntimeTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF0F1E201AC76B00B0273C /* RuntimeTestUITests.m */; };
+		04D41FCE20CF67D4000D2953 /* UIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D41FCD20CF67D4000D2953 /* UIImage+Category.m */; };
+		04D41FD320CFA310000D2953 /* swizzling.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D41FD220CFA310000D2953 /* swizzling.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,9 @@
 		04CF0F1A201AC76B00B0273C /* RuntimeTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RuntimeTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CF0F1E201AC76B00B0273C /* RuntimeTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuntimeTestUITests.m; sourceTree = "<group>"; };
 		04CF0F20201AC76B00B0273C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04D41FCC20CF67D4000D2953 /* UIImage+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Category.h"; sourceTree = "<group>"; };
+		04D41FCD20CF67D4000D2953 /* UIImage+Category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Category.m"; sourceTree = "<group>"; };
+		04D41FD220CFA310000D2953 /* swizzling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swizzling.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +126,7 @@
 				04BDD1FD20C6696900FCA2D8 /* ZWWTableViewController.m */,
 				04BDD1FB20C6696900FCA2D8 /* ZWWTableViewController+method.h */,
 				04BDD1FC20C6696900FCA2D8 /* ZWWTableViewController+method.m */,
+				04D41FD220CFA310000D2953 /* swizzling.png */,
 				04BDD1F820C6677400FCA2D8 /* 消息转发机制.png */,
 				04CF0EFA201AC76B00B0273C /* AppDelegate.h */,
 				04CF0EFB201AC76B00B0273C /* AppDelegate.m */,
@@ -130,6 +136,8 @@
 				042E91B920AE714C00D1CD02 /* ZWWPerson+Method.m */,
 				044E9B4720AD74E300658846 /* ZWWPersonForward.h */,
 				044E9B4820AD74E300658846 /* ZWWPersonForward.m */,
+				04D41FCC20CF67D4000D2953 /* UIImage+Category.h */,
+				04D41FCD20CF67D4000D2953 /* UIImage+Category.m */,
 				04CF0F03201AC76B00B0273C /* Assets.xcassets */,
 				04CF0F05201AC76B00B0273C /* LaunchScreen.storyboard */,
 				04CF0F08201AC76B00B0273C /* Info.plist */,
@@ -263,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04CF0F07201AC76B00B0273C /* LaunchScreen.storyboard in Resources */,
+				04D41FD320CFA310000D2953 /* swizzling.png in Resources */,
 				04BDD1F920C6677400FCA2D8 /* 消息转发机制.png in Resources */,
 				04CF0F04201AC76B00B0273C /* Assets.xcassets in Resources */,
 			);
@@ -296,6 +305,7 @@
 				04BDD1FE20C6696A00FCA2D8 /* ZWWTableViewController+method.m in Sources */,
 				04CF0F0A201AC76B00B0273C /* main.m in Sources */,
 				04CF0EFC201AC76B00B0273C /* AppDelegate.m in Sources */,
+				04D41FCE20CF67D4000D2953 /* UIImage+Category.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

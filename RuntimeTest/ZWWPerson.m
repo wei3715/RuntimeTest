@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "ZWWPersonForward.h"
 @interface ZWWPerson()<ZWWPersonDelegate>
+
 @property (nonatomic, strong)NSArray *arr;
 - (NSArray *)method4;
 
@@ -21,7 +22,7 @@
     NSLog(@"测试方法%s",__func__);
 }
 
-/*********************************************消息转发机制************************************************/
+/*********************************************消息转发机制start************************************************/
 
 //- (void)method2WithParam:(NSDictionary *)dic{
 //    NSLog(@"方法正常实现方式==%s",__func__);
@@ -79,12 +80,13 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
         [anInvocation invokeWithTarget:forwad];
     }
 }
-/*********************************************消息转发机制************************************************/
+/*********************************************消息转发机制end************************************************/
 
 + (void)method3{
     
 }
 
+//测试利用Runtime修改属性值
 - (NSArray *)method4{
     _arr = [[NSArray alloc]initWithObjects:@"1",@"2", nil];
     return _arr;
@@ -92,38 +94,64 @@ void runAddMethod(id self, SEL _cmd, NSDictionary *dic) {
 
 //解档
 - (id)initWithCoder:(NSCoder *)decoder{
-    if (self = [super init]) {
-        unsigned int count = 0;
-        Ivar *ivarList = class_copyIvarList([ZWWPerson class], &count);
-        //获取类中所有成员变量
-        for (int i = 0; i<count; i++) {
-            Ivar ivar = ivarList[i];
-            const char *ivarName = ivar_getName(ivar);
-            NSString *strIvarName = [NSString stringWithUTF8String:ivarName];
-            //进行解档取值
-            id value = [decoder decodeObjectForKey:strIvarName];
-            //利用KVC对属性赋值
-            [self setValue:value forKey:strIvarName];
-        }
-        free(ivarList);
-        
-    }
-    return self;
+//    if (self = [super init]) {
+//        unsigned int count = 0;
+//        Ivar *ivarList = class_copyIvarList([ZWWPerson class], &count);
+//        //获取类中所有成员变量
+//        for (int i = 0; i<count; i++) {
+//            Ivar ivar = ivarList[i];
+//            const char *ivarName = ivar_getName(ivar);
+//            NSString *strIvarName = [NSString stringWithUTF8String:ivarName];
+//            //进行解档取值
+//            id value = [decoder decodeObjectForKey:strIvarName];
+//            //利用KVC对属性赋值
+//            [self setValue:value forKey:strIvarName];
+//        }
+//        free(ivarList);
+//
+//    }
+//    return self;
+    initWithRuntime(ZWWPerson);
 }
 
 //归档
 - (void)encodeWithCoder:(NSCoder *)encoder{
+//    unsigned int count = 0;
+//    Ivar *ivarList = class_copyIvarList([ZWWPerson class], &count);
+//    for (int i = 0; i<count; i++) {
+//
+//        const char *ivarName = ivar_getName(ivarList[i]);
+//        NSString *strIvarName = [NSString stringWithUTF8String:ivarName];
+//        //利用KVC取值
+//        id value = [self valueForKey:strIvarName];
+//        [encoder encodeObject:value forKey:strIvarName];
+//
+//    }
+//    free(ivarList);
+      encodeRuntime(ZWWPerson) ;
+}
+
+//在NSObject的分类中增加方法判断来避免使用KVC赋值的时候出现崩溃
+-(BOOL)hasProperty:(NSString *)property{
+    BOOL flag = false;
     unsigned int count = 0;
-     Ivar *ivarList = class_copyIvarList([ZWWPerson class], &count);
+    Ivar *ivarList = class_copyIvarList([self class], &count);
     for (int i = 0; i<count; i++) {
-        
         const char *ivarName = ivar_getName(ivarList[i]);
         NSString *strIvarName = [NSString stringWithUTF8String:ivarName];
-        //利用KVC取值
-        id value = [self valueForKey:strIvarName];
-        [encoder encodeObject:value forKey:strIvarName];
-       
+        if ([strIvarName isEqualToString:property]) {
+            flag = true;
+        }
     }
-    free(ivarList);
+    return flag;
+}
+
++(void)run{
+    ZWWLog(@"跑步");
+    
+}
++(void)study{
+    ZWWLog(@"学习");
+    
 }
 @end
