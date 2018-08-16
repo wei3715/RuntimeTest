@@ -12,7 +12,7 @@
 #import "ZWWTableViewController+method.h"
 #import "ZWWPerson.h"
 #import "ZWWPerson+Method.h"
-@interface ZWWTableViewController ()<NSCoding>
+@interface ZWWTableViewController ()
 
 @property (nonatomic, strong) NSArray  *titleArr;
 
@@ -23,7 +23,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _titleArr = @[@"0.测试元类（动态添加一个类，给类添加方法）",@"1.Runtime打印类信息（category添加属性，动态改变变量值）",@"2.Runtime实际利用：归档/解档",@"3.消息转发机制",@"4.动态添加一个类",@"5.运行时判断类中是否存在某属性，避免使用KVC赋值的时候出现崩溃",@"6.动态添加一个类",@"7.动态交换方法实现",@"8.拦截系统方法(Swizzle 黑魔法）,也可以说成对系统的方法进行替换"];
+    _titleArr = @[@"0.测试元类（动态添加一个类，给类添加方法）",
+                  @"1.Runtime打印类信息（category添加属性，动态改变变量值）",
+                  @"2.Runtime实际利用：归档/解档",
+                  @"3.消息转发机制",
+                  @"4.动态添加一个类",
+                  @"5.运行时判断类中是否存在某属性，避免使用KVC赋值的时候出现崩溃",
+                  @"6.动态添加一个类",
+                  @"7.动态交换方法实现",
+                  @"8.拦截系统方法(Swizzle 黑魔法）,也可以说成对系统的方法进行替换"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"baseCell"];
     
 }

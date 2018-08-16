@@ -12,7 +12,7 @@
 - (void)eat;
 @end
 
-@interface ZWWPerson : NSObject{
+@interface ZWWPerson : NSObject<NSCoding>{
     @public
    NSInteger height;
 }
